@@ -1,24 +1,28 @@
+#ifndef VARIABLES_H
+#define VARIABLES_H
+
 #include <cstring>
 
-struct variable {
-  virtual char *getname()=0;
-  virtual char *getlabel()=0;
-};
+/*The variables required for each analysis shall be defined as structs
+inheriting from both, variable and value<T>.
 
+  struct avariable : public value<float>, public variable {};
+
+abstract functions getname() and getlabel() should be implemented in 
+the derived struct.*/
+
+/* base structure for variables definition. variables should be a
+derived structure in order to share a container.*/
+struct variable {
+  virtual char const *getname()=0;
+  virtual char const *getlabel()=0;
+};
+/* base template structure for variables storing values. template
+allows variables to be created with int, float, double or string 
+values.*/
 template <typename T> struct value {
   T v;
+  T getvalue() {return v;}
 };
 
-struct numberofsides : public value<int>, public variable {
-  char *getname() {return "number of sides";}
-  char *getlabel() {return "N";}
-};
-struct lengthofside : public value<float>, public variable {
-  char *getname() {return "length of side";}
-  char *getlabel() {return "a";}
-};
-struct perimeter : public value<float>, public variable {
-  char *getname() {return "perimeter";}
-  char *getlabel() {return "P";}
-};
-
+#endif
