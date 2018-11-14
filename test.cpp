@@ -2,8 +2,8 @@
 #include "variable.h"
 
 int main(int argc, char* argv[]){
-  namedvar first("first");
-  namedvar second("second");
+  var<int> first(3, "integer");
+  var<float> second(4.12, "float");
   
   first.report(); std::cout<<std::endl;
   second.report(); std::cout<<std::endl;
