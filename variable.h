@@ -8,16 +8,27 @@
 // polymorphic use of the variables.
 
 class namedvar{
-  private:
+  protected:
     std::string name;
   public:
     namedvar(const std::string n):name(n) {} // constructor
     // interface
-    void report(void);    
+    virtual void report(void)=0;    
 };
 
-void namedvar::report(void){
-  std::cout<<name;
+template <typename T>
+class var:public namedvar{
+  private:
+    T value;
+  public:
+    var(T v, std::string n):value(v), namedvar(n){} // constructor
+    // especialized methods
+    void report(void);
+};
+
+template <typename T>
+void var<T>::report(void){
+  std::cout<<name<<" = "<<value;
   return;
 }
 #endif
